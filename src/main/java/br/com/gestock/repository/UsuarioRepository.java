@@ -1,16 +1,14 @@
 package br.com.gestock.repository;
 
-import br.com.gestock.model.Usuarios;
-import br.com.gestock.util.Criptografia;
+import br.com.gestock.model.Usuario;
 import br.com.gestock.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.TypedQuery;
 import java.util.List;
 
-public class UsuariosDAO {
+public class UsuarioRepository {
 
-    public void cadastrar(Usuarios usuario) {
+    public void cadastrar(Usuario usuario) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -24,34 +22,25 @@ public class UsuariosDAO {
         }
     }
 
-    public Usuarios validarLogin(String username, String password) {
+    public Usuario findByUsername(String username) {
         EntityManager manager = JPAUtil.getEntityManager();
         String jpql = "SELECT u FROM Usuarios u WHERE u.username = :username";
         try {
-            TypedQuery<Usuarios> query = manager.createQuery(jpql, Usuarios.class);
-            query.setParameter("username", username);
-            
-            List<Usuarios> resultados = query.getResultList();
-            if (resultados.isEmpty()) return null;
-            
-            Usuarios usuario = resultados.get(0);
-            String hashDaSenhaDigitada = Criptografia.getMD5(password);
-        
-            if (hashDaSenhaDigitada.equals(usuario.getPassword_hash())) {
-                return usuario;
-            }
-            return null;
+            return manager.createQuery(jpql, Usuario.class)
+                    .setParameter("username", username)
+                    .getResultList()
+                    .getFirst();
         } catch (Exception exception) {
-            throw new RuntimeException("Erro ao validar login", exception);
+            throw new RuntimeException("Erro ao buscar usuario", exception);
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public List<Usuarios> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
-            return manager.createQuery("SELECT u FROM Usuarios u", Usuarios.class).getResultList();
+            return manager.createQuery("SELECT u FROM Usuarios u", Usuario.class).getResultList();
         } catch (Exception exception) {
             throw new RuntimeException("Erro ao buscar usuários", exception);
         } finally {
@@ -59,7 +48,7 @@ public class UsuariosDAO {
         }
     }
 
-    public void editar(Usuarios usuario) {
+    public void editar(Usuario usuario) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -73,10 +62,10 @@ public class UsuariosDAO {
         }
     }
     
-    public Usuarios getUsuariosByID(int id){
+    public Usuario getUsuariosByID(int id){
         EntityManager manager = JPAUtil.getEntityManager();
         try{
-            Usuarios usuario = manager.find(Usuarios.class, id);
+            Usuario usuario = manager.find(Usuario.class, id);
             return usuario;
         }catch(Exception exception){
             throw new RuntimeException("Erro ao buscar usuário", exception);
@@ -87,7 +76,7 @@ public class UsuariosDAO {
     
     public void deletar(int id){
         EntityManager manager = JPAUtil.getEntityManager();
-        Usuarios usuario = manager.find(Usuarios.class, id);
+        Usuario usuario = manager.find(Usuario.class, id);
         if (usuario != null) {
             try {
                 manager.getTransaction().begin();
