@@ -1,5 +1,6 @@
 package br.com.gestock.model;
 
+import br.com.gestock.model.enums.NivelAcesso;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

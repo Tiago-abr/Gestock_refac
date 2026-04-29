@@ -1,4 +1,4 @@
-package br.com.gestock.dao;
+package br.com.gestock.repository;
 
 import br.com.gestock.model.Usuarios;
 import br.com.gestock.util.Criptografia;

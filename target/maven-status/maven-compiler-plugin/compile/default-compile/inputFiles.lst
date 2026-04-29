@@ -1,0 +1,13 @@
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\application\Gestock_refactor.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\model\Clientes.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\model\enums\NivelAcesso.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\model\Produtos.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\model\Usuarios.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\model\Vendas.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\repository\ClientesDAO.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\repository\ProdutosDAO.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\repository\UsuariosDAO.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\repository\VendasDAO.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\service\AuthService.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\util\Criptografia.java
+C:\Users\Tiago\Documents\Senac\M2_UC15_PI\Gestock_refactor\src\main\java\br\com\gestock\util\JPAUtil.java

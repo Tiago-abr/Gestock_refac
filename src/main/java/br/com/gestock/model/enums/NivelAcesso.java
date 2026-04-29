@@ -1,4 +1,4 @@
-package br.com.gestock.model;
+package br.com.gestock.model.enums;
 
 public enum NivelAcesso {
     Administrador,
