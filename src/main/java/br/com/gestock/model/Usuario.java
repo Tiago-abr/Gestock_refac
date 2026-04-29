@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name ="usuarios")
 
-public class Usuarios {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; 
@@ -57,6 +57,4 @@ public class Usuarios {
     public void setPassword_hash(String password_hash) {
         this.password_hash = password_hash;
     }
-
-    
 }

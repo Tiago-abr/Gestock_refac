@@ -13,18 +13,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="vendas")
-public class Vendas {
+public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
-    private Clientes id_cliente;
+    private Cliente id_cliente;
     
     @ManyToOne
     @JoinColumn(name = "id_produto", nullable = false)
-    private Produtos id_produto;
+    private Produto id_produto;
     
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
@@ -50,19 +50,19 @@ public class Vendas {
         this.id = id;
     }
 
-    public Clientes getId_cliente() {
+    public Cliente getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(Clientes id_cliente) {
+    public void setId_cliente(Cliente id_cliente) {
         this.id_cliente = id_cliente;
     }
 
-    public Produtos getProduto() {
+    public Produto getProduto() {
         return id_produto;
     }
 
-    public void setProduto(Produtos produto) {
+    public void setProduto(Produto produto) {
         this.id_produto = produto;
     }
 
