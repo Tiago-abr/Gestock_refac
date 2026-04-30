@@ -11,26 +11,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="usuarios")
-
-public class Usuario {
+@Table(name ="user")
+public class User {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; 
+    private long id; 
     
     private String username;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "nivel", nullable = false)
-    private NivelAcesso nivelAcesso;
+    @Column(name = "level", nullable = false)
+    private NivelAcesso accessLevel;
     
     private String password_hash;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,12 +42,12 @@ public class Usuario {
         this.username = username;
     }
 
-    public NivelAcesso getNivelAcesso() {
-        return nivelAcesso;
+    public NivelAcesso getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setNivelAcesso(NivelAcesso nivelAcesso) {
-        this.nivelAcesso = nivelAcesso;
+    public void setAccessLevel(NivelAcesso accessLevel) {
+        this.accessLevel = accessLevel;
     }
 
     public String getPassword_hash() {

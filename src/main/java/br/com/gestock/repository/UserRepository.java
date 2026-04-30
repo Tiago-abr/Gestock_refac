@@ -1,95 +1,95 @@
 package br.com.gestock.repository;
 
-import br.com.gestock.model.Usuario;
+import br.com.gestock.model.User;
 import br.com.gestock.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
-public class UsuarioRepository {
+public class UserRepository {
 
-    public void cadastrar(Usuario usuario) {
+    public void save(User user) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
-            manager.persist(usuario);
+            manager.persist(user);
             manager.getTransaction().commit();
-        } catch (Exception ex) {
+        } catch (Exception exception) {
             manager.getTransaction().rollback();
-            throw new RuntimeException("Erro ao realizar o cadastro");
+            throw new RuntimeException("Error adding the user "+exception.getMessage());
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public Usuario findByUsername(String username) {
+    public User findByUsername(String username) {
         EntityManager manager = JPAUtil.getEntityManager();
-        String jpql = "SELECT u FROM Usuarios u WHERE u.username = :username";
+        String jpql = "SELECT u FROM User u WHERE u.username = :username";
         try {
-            return manager.createQuery(jpql, Usuario.class)
+            return manager.createQuery(jpql, User.class)
                     .setParameter("username", username)
                     .getResultList()
                     .getFirst();
         } catch (Exception exception) {
-            throw new RuntimeException("Erro ao buscar usuario", exception);
+            throw new RuntimeException("Error retrieving user "+exception.getMessage());
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public List<Usuario> getUsuarios() {
+    public List<User> getUsers() {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
-            return manager.createQuery("SELECT u FROM Usuarios u", Usuario.class).getResultList();
+            return manager.createQuery("SELECT u FROM User u", User.class).getResultList();
         } catch (Exception exception) {
-            throw new RuntimeException("Erro ao buscar usuários", exception);
+            throw new RuntimeException("Error retrieving user "+exception.getMessage());
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public void editar(Usuario usuario) {
+    public void update(User user) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
-            manager.merge(usuario);
+            manager.merge(user);
             manager.getTransaction().commit();
         }catch(Exception exception){
             manager.getTransaction().rollback();
-            throw new RuntimeException("Erro ao editar usuário", exception);
+            throw new RuntimeException("Error updating the user", exception);
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public Usuario getUsuariosByID(int id){
+    public User getUserByID(Long id){
         EntityManager manager = JPAUtil.getEntityManager();
         try{
-            Usuario usuario = manager.find(Usuario.class, id);
-            return usuario;
+            User user = manager.find(User.class, id);
+            return user;
         }catch(Exception exception){
-            throw new RuntimeException("Erro ao buscar usuário", exception);
+            throw new RuntimeException("Error retrieving user "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public void deletar(int id){
+    public void delete(Long id){
         EntityManager manager = JPAUtil.getEntityManager();
-        Usuario usuario = manager.find(Usuario.class, id);
-        if (usuario != null) {
+        User user = manager.find(User.class, id);
+        if (user != null) {
             try {
                 manager.getTransaction().begin();
-                manager.remove(usuario);
+                manager.remove(user);
                 manager.getTransaction().commit();
             } catch (Exception exception) {
                 manager.getTransaction().rollback();
-                throw new RuntimeException("Erro ao deletar usuário", exception);
+                throw new RuntimeException("Error deleting the user "+exception.getMessage());
             } finally {
                 JPAUtil.closeEntityManager();
             }
         }else{
-            throw new EntityNotFoundException("Usuário com ID " + id + " não encontrado.");
+            throw new EntityNotFoundException("User with ID " + id + " not found.");
         }
     }
 }
