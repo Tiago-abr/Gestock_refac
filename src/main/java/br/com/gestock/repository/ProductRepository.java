@@ -1,72 +1,72 @@
 package br.com.gestock.repository;
 
-import br.com.gestock.model.Produtos;
+import br.com.gestock.model.Product;
 import br.com.gestock.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
 import java.util.List;
 
-public class ProdutosDAO {
+public class ProductRepository {
 
-    public void adicionarProduto(Produtos produto) {
+    public void save(Product product) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
-            manager.persist(produto);
+            manager.persist(product);
             manager.getTransaction().commit();
-        } catch (Exception e) {
+        } catch (Exception exception) {
             manager.getTransaction().rollback();
-            System.out.println("Erro ao adicionar produto. " + e.getMessage());
+            System.out.println("Erro adding the product. " + exception.getMessage());
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public List<Produtos> getProdutos() {
+    public List<Product> getProduct() {
         EntityManager manager = JPAUtil.getEntityManager();
-        String jpql = "SELECT p FROM Produtos p";
+        String jpql = "SELECT p FROM Product p";
         try {
-            Query query = manager.createQuery(jpql, Produtos.class);
+            Query query = manager.createQuery(jpql, Product.class);
             return query.getResultList();
-        } catch (Exception e) {
-            System.out.println("Erro ao buscar produtos. " + e.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Error retrieving products. " + exception.getMessage());
             return null;
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public void atualizar(Produtos produto) {
+    public void update(Product product) {
         EntityManager manager = JPAUtil.getEntityManager();
         try {
             manager.getTransaction().begin();
-            manager.merge(produto);
+            manager.merge(product);
             manager.getTransaction().commit();
-        } catch (Exception ex) {
+        } catch (Exception exception) {
             manager.getTransaction().rollback();
-            System.out.println("Erro ao atualizar produto. " + ex.getMessage());
+            System.out.println("Error updating the product. " + exception.getMessage());
         } finally {
             JPAUtil.closeEntityManager();
         }
     }
 
-    public void deletar(int id) {
+    public void delete(Long id) {
         EntityManager manager = JPAUtil.getEntityManager();
-        Produtos produto = manager.find(Produtos.class, id);
-        if (produto != null) {
+        Product product = manager.find(Product.class, id);
+        if (product != null) {
             try {
                 manager.getTransaction().begin();
-                manager.remove(produto);
+                manager.remove(product);
                 manager.getTransaction().commit();
-            } catch (Exception ex) {
+            } catch (Exception exception) {
                 manager.getTransaction().rollback();
-                System.out.println("Erro ao deletar produto. " + ex.getMessage());
+                System.out.println("Error deleting the product. " + exception.getMessage());
             } finally {
                 JPAUtil.closeEntityManager();
             }
         }else{
-            throw new EntityNotFoundException("Produto com ID " + id + " não encontrado.");
+            throw new EntityNotFoundException("Product with ID " + id + " not found.");
         }
     }
 }
