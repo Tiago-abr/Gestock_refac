@@ -1,19 +1,19 @@
 package br.com.gestock.service;
 
-import br.com.gestock.model.Usuario;
-import br.com.gestock.repository.UsuarioRepository;
+import br.com.gestock.model.User;
+import br.com.gestock.repository.UserRepository;
 import br.com.gestock.service.exceptions.InvalidLoginException;
 import br.com.gestock.util.Criptografia;
 
 public class AuthService {
-    private UsuarioRepository UsuarioRepository;
+    private UserRepository UsuarioRepository;
     
-    public AuthService(UsuarioRepository UsuarioRepository){
+    public AuthService(UserRepository UsuarioRepository){
         this.UsuarioRepository = UsuarioRepository;
     }
     
-    public Usuario validateLogin(String username, String password){
-        Usuario usuario = UsuarioRepository.findByUsername(username);
+    public User validateLogin(String username, String password){
+        User usuario = UsuarioRepository.findByUsername(username);
         
         String hashDigitado = Criptografia.getMD5(password);
         

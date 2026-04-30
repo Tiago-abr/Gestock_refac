@@ -1,6 +1,6 @@
 package br.com.gestock.model;
 
-import br.com.gestock.model.enums.NivelAcesso;
+import br.com.gestock.model.enums.AccessLevel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,7 +22,7 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "level", nullable = false)
-    private NivelAcesso accessLevel;
+    private AccessLevel accessLevel;
     
     private String password_hash;
 
@@ -42,11 +42,11 @@ public class User {
         this.username = username;
     }
 
-    public NivelAcesso getAccessLevel() {
+    public AccessLevel getAccessLevel() {
         return accessLevel;
     }
 
-    public void setAccessLevel(NivelAcesso accessLevel) {
+    public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
     }
 
