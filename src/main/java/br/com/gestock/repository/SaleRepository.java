@@ -1,72 +1,72 @@
 package br.com.gestock.repository;
 
-import br.com.gestock.model.Vendas;
+import br.com.gestock.model.Sale;
 import br.com.gestock.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
 import java.util.List;
 
-public class VendasDAO {
+public class SaleRepository {
     
-    public void adicionar(Vendas venda){
+    public void save(Sale sale){
         EntityManager manager = JPAUtil.getEntityManager();
         try{
             manager.getTransaction().begin();
-            manager.persist(venda);
+            manager.persist(sale);
             manager.getTransaction().commit();
-        }catch(Exception e){
+        }catch(Exception exception){
             manager.getTransaction().rollback();
-            System.out.println("Erro ao adicionar venda.");
+            System.out.println("Error adding a sale. "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public List<Vendas> getVendas(){
+    public List<Sale> getSales(){
         EntityManager manager = JPAUtil.getEntityManager();
-        String jpql = "SELECT v FROM Vendas v";
+        String jpql = "SELECT s FROM Sale s";
         try{
-            Query query = manager.createQuery(jpql, Vendas.class);
+            Query query = manager.createQuery(jpql, Sale.class);
             return query.getResultList();
-        }catch(Exception e){
-            System.out.println("Erro ao retornar vendas.");
+        }catch(Exception exception){
+            System.out.println("Error retrieving sales data.");
             return null;
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public void atualizar(Vendas venda){
+    public void update(Sale sale){
         EntityManager manager = JPAUtil.getEntityManager();
         try{
             manager.getTransaction().begin();
-            manager.merge(venda);
+            manager.merge(sale);
             manager.getTransaction().commit();
-        }catch(Exception ex){
+        }catch(Exception exception){
             manager.getTransaction().rollback();
-            System.out.println("Erro ao atualizar venda. "+ex.getMessage());
+            System.out.println("Error updating the sale. "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public void deletar(int id) {
+    public void delete(Long id) {
         EntityManager manager = JPAUtil.getEntityManager();
-        Vendas venda = manager.find(Vendas.class, id);
-        if (venda != null) {
+        Sale sale = manager.find(Sale.class, id);
+        if (sale != null) {
             try {
                 manager.getTransaction().begin();
-                manager.remove(venda);
+                manager.remove(sale);
                 manager.getTransaction().commit();
-            } catch (Exception ex) {
+            } catch (Exception exception) {
                 manager.getTransaction().rollback();
-                System.out.println("Erro ao deletar venda. " + ex.getMessage());
+                System.out.println("Error deleting the sale. " + exception.getMessage());
             } finally {
                 JPAUtil.closeEntityManager();
             }
         }else{
-            throw new EntityNotFoundException("Venda com ID " + id + " não encontrado.");
+            throw new EntityNotFoundException("Sale with ID " + id + " not found.");
         }
     }
 }
