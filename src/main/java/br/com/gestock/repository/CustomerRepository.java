@@ -1,74 +1,73 @@
 package br.com.gestock.repository;
 
-import br.com.gestock.model.Clientes;
+import br.com.gestock.model.Customer;
 import br.com.gestock.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
 import java.util.List;
 
-public class ClientesDAO {
+public class CustomerRepository {
     
-    public void adicionar(Clientes cliente){
+    public void save(Customer customer){
         EntityManager manager = JPAUtil.getEntityManager();
         
         try{
             manager.getTransaction().begin();
-            manager.persist(cliente);
+            manager.persist(customer);
             manager.getTransaction().commit();
-        }catch(Exception ex){
+        }catch(Exception exception){
             manager.getTransaction().rollback();
-            System.out.println("Erro ao inserir produto. "+ex.getMessage());
+            System.out.println("Error adding the customer. "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public List<Clientes> getClientes(){
+    public List<Customer> getCustomers(){
         EntityManager manager = JPAUtil.getEntityManager();
-        String jpql = "SELECT c FROM Clientes c";
+        String jpql = "SELECT c FROM Customers c";
         try{
-            Query query = manager.createQuery(jpql, Clientes.class);
+            Query query = manager.createQuery(jpql, Customer.class);
             return query.getResultList();
-        }catch(Exception e){
-            System.out.println("Erro ao buscar clientes. "+e.getMessage());
+        }catch(Exception exception){
+            System.out.println("Error retrieving customers "+exception.getMessage());
             return null;
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    public void atualizar(Clientes cliente){
+    public void update(Customer customer){
         EntityManager manager = JPAUtil.getEntityManager();
         try{
             manager.getTransaction().begin();
-            manager.merge(cliente);
+            manager.merge(customer);
             manager.getTransaction().commit();
-        }catch(Exception ex){
+        }catch(Exception exception){
             manager.getTransaction().rollback();
-            System.out.println("Erro ao atualizar clientes. "+ex.getMessage());
+            System.out.println("Error updating the customer. "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
     }
     
-    
-    public void deletar(int id) {
+    public void delete(Long id) {
         EntityManager manager = JPAUtil.getEntityManager();
-        Clientes cliente = manager.find(Clientes.class, id);
-        if (cliente != null) {
+        Customer customer = manager.find(Customer.class, id);
+        if (customer != null) {
             try {
                 manager.getTransaction().begin();
-                manager.remove(cliente);
+                manager.remove(customer);
                 manager.getTransaction().commit();
-            } catch (Exception ex) {
+            } catch (Exception exception) {
                 manager.getTransaction().rollback();
-                System.out.println("Erro ao deletar cliente. " + ex.getMessage());
+                System.out.println("Error deleting the customer. " + exception.getMessage());
             } finally {
                 JPAUtil.closeEntityManager();
             }
         }else{
-            throw new EntityNotFoundException("Cliente com ID " + id + " não encontrado.");
+            throw new EntityNotFoundException("Customer with ID " + id + " not found.");
         }
     }
 }
