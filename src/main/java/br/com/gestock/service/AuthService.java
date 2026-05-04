@@ -1,5 +1,6 @@
 package br.com.gestock.service;
 
+import br.com.gestock.dto.UserDTO;
 import br.com.gestock.model.User;
 import br.com.gestock.repository.UserRepository;
 import br.com.gestock.service.exceptions.InvalidLoginException;
@@ -12,15 +13,15 @@ public class AuthService {
         this.UsuarioRepository = UsuarioRepository;
     }
     
-    public User validateLogin(String username, String password){
-        User usuario = UsuarioRepository.findByUsername(username);
+    public UserDTO validateLogin(String username, String password){
+        User user = UsuarioRepository.findByUsername(username);
         
-        String hashDigitado = CryptographyUtils.getMD5(password);
+        String hashPassword = CryptographyUtils.getMD5(password);
         
-        if(!hashDigitado.equals(usuario.getPassword_hash())){
-            throw new InvalidLoginException("Senha incorreta.");
+        if(!hashPassword.equals(user.getPassword_hash())){
+            throw new InvalidLoginException("Incorrect password.");
         }
         
-        return usuario;
+        return new UserDTO(user);
     }
 }
