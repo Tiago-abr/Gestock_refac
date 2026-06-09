@@ -1,0 +1,4 @@
+br\com\gestock\service\CustomerServiceTest.class
+br\com\gestock\service\ProductServiceTest.class
+br\com\gestock\service\UserServiceTest.class
+br\com\gestock\service\SaleServiceTest.class
