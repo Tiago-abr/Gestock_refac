@@ -34,6 +34,18 @@ public class Sale {
     
     private int quantity;
 
+    public Sale(Long id, Customer id_customer, Product id_product, BigDecimal total, LocalDateTime date_sale, int quantity) {
+        this.id = id;
+        this.id_customer = id_customer;
+        this.id_product = id_product;
+        this.total = total;
+        this.date_sale = date_sale;
+        this.quantity = quantity;
+    }
+
+    public Sale() {
+    }
+    
     public Long getId() {
         return id;
     }

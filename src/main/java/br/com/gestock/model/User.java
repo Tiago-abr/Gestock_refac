@@ -26,6 +26,16 @@ public class User {
     
     private String password_hash;
 
+    public User() {
+    }
+    
+    public User(long id, String username, AccessLevel accessLevel, String password_hash) {
+        this.id = id;
+        this.username = username;
+        this.accessLevel = accessLevel;
+        this.password_hash = password_hash;
+    }
+
     public long getId() {
         return id;
     }

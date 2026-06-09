@@ -18,6 +18,16 @@ public class Product {
     private BigDecimal price;
     private String category;
 
+    public Product(Long id, String name, BigDecimal price, String category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product() {
+    }
+
     public Long getId() {
         return id;
     }
