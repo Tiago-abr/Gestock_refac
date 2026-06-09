@@ -18,7 +18,7 @@ public class CustomerRepository {
             manager.getTransaction().commit();
         }catch(Exception exception){
             manager.getTransaction().rollback();
-            System.out.println("Error adding the customer. "+exception.getMessage());
+            throw new RuntimeException("Error adding the customer. "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
@@ -33,6 +33,18 @@ public class CustomerRepository {
         }catch(Exception exception){
             System.out.println("Error retrieving customers "+exception.getMessage());
             return null;
+        }finally{
+            JPAUtil.closeEntityManager();
+        }
+    }
+    
+    public Customer getCustomerByID(Long id){
+        EntityManager manager = JPAUtil.getEntityManager();
+        try{
+            Customer customer = manager.find(Customer.class, id);
+            return customer;
+        }catch(Exception exception){
+            throw new RuntimeException("Error retrieving user "+exception.getMessage());
         }finally{
             JPAUtil.closeEntityManager();
         }
